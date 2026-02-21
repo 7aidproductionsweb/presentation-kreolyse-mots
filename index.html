@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kréolyse — Traducteur Français / Créole Guyanais</title>
+    <meta name="description" content="Un des premiers traducteurs en ligne Français - Créole Guyanais. Plus de 1 500 mots à portée de main.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <!-- Three.js 3D Background -->
+    <div id="canvas-container"></div>
+
+    <!-- Floating Words FR/Créole -->
+    <div id="floating-words-left"></div>
+    <div id="floating-words-right"></div>
+
+    <!-- Gradient Overlay -->
+    <div class="gradient-overlay"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="logo-link">
+            <img src="https://i.postimg.cc/rw9n5YmL/logo-sousbloc.png" alt="Kréolyse" class="logo-img" id="floating-logo">
+            <span class="logo-text">Kréolyse</span>
+        </a>
+        <div class="nav-right">
+            <a href="https://kreolyse-mots.netlify.app" target="_blank" class="nav-cta">Essayer l'app</a>
+            <button id="theme-toggle" aria-label="Changer de thème">
+                <span class="theme-icon">☀️</span>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" id="hero">
+            <div class="hero-badge reveal">
+                <span class="badge-dot"></span>
+                Un des premiers traducteurs en ligne
+            </div>
+            <h1 class="split-text reveal">
+                <span class="line">Une langue,</span>
+                <span class="line">une identité,</span>
+                <span class="line accent-line">une application.</span>
+            </h1>
+            <p class="hero-subtitle reveal">
+                Le pont numérique entre le français et le créole guyanais.<br>
+                Plus de <strong>1 500 mots</strong> à portée de main.
+            </p>
+            <div class="hero-actions reveal">
+                <a href="https://kreolyse-mots.netlify.app" target="_blank" class="cta-btn primary">
+                    <span>Essayer gratuitement</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+                <a href="#fonctionnement" class="cta-btn secondary">Découvrir</a>
+            </div>
+        </section>
+
+        <!-- Stats Counter -->
+        <section class="stats" id="stats">
+            <div class="stats-grid">
+                <div class="stat-item reveal">
+                    <span class="stat-number" data-target="1500">0</span>
+                    <span class="stat-plus">+</span>
+                    <span class="stat-label">mots dans le lexique</span>
+                </div>
+                <div class="stat-item reveal">
+                    <span class="stat-number stat-orange" data-target="2">0</span>
+                    <span class="stat-label">directions de traduction</span>
+                </div>
+                <div class="stat-item reveal">
+                    <span class="stat-number" data-target="100">0</span>
+                    <span class="stat-percent">%</span>
+                    <span class="stat-label">gratuit, sans inscription</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comment ça marche -->
+        <section class="how-it-works" id="fonctionnement">
+            <h2 class="section-title reveal">Comment ça marche ?</h2>
+            <p class="section-subtitle reveal">C'est simple. Vous tapez un mot, vous obtenez sa traduction. Instantanément.</p>
+
+            <div class="steps-grid">
+                <div class="step-card reveal">
+                    <div class="step-number">01</div>
+                    <div class="step-icon lang-flow">FR → GCR</div>
+                    <h3>Du Français vers le Créole Guyanais</h3>
+                    <p>Vous cherchez comment dire «dormir» en créole ? Tapez le mot, Kréolyse vous répond : <em>dronmi</em>.</p>
+                </div>
+                <div class="step-card reveal">
+                    <div class="step-number">02</div>
+                    <div class="step-icon lang-flow">GCR → FR</div>
+                    <h3>Du Créole Guyanais vers le Français</h3>
+                    <p>Vous entendez un mot créole et voulez comprendre son sens ? L'application traduit dans l'autre sens tout aussi facilement.</p>
+                </div>
+                <div class="step-card reveal">
+                    <div class="step-number">03</div>
+                    <div class="step-icon">🎤 〰️</div>
+                    <h3>Parlez, Kréolyse écoute</h3>
+                    <p>Appuyez sur le micro, prononcez votre mot, et Kréolyse le transcrit. Appuyez sur Traduire et le résultat s'affiche.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="features" id="features">
+            <h2 class="section-title reveal">Pensée pour être utile, simple <br>et évolutive...</h2>
+
+            <div class="features-grid">
+                <div class="feature-card reveal" data-tilt>
+                    <div class="feature-icon">🗣️</div>
+                    <h3>Traduction Vocale</h3>
+                    <p>Pas envie de taper ? Utilisez votre voix. Prononcez votre mot, Kréolyse le transcrit et le traduit.</p>
+                </div>
+                <div class="feature-card reveal" data-tilt>
+                    <div class="feature-icon">📚</div>
+                    <h3>Lexique Évolutif</h3>
+                    <p>Déjà 1 500+ entrées. Proposez vos propres traductions pour faire grandir la communauté et la langue.</p>
+                </div>
+                <div class="feature-card reveal" data-tilt>
+                    <div class="feature-icon">🌓</div>
+                    <h3>Mode Clair / Sombre</h3>
+                    <p>Adaptez l'affichage à votre préférence ou à l'heure de la journée.</p>
+                </div>
+                <div class="feature-card reveal" data-tilt>
+                    <div class="feature-icon">⭐</div>
+                    <h3>Favoris</h3>
+                    <p>Sauvegardez les traductions que vous consultez souvent pour les retrouver en un instant.</p>
+                </div>
+                <div class="feature-card reveal" data-tilt>
+                    <div class="feature-icon">🔗</div>
+                    <h3>Partage par lien</h3>
+                    <p>Envoyez un lien direct vers une traduction à un ami. Il n'a qu'à cliquer pour voir le résultat.</p>
+                </div>
+                <div class="feature-card reveal" data-tilt>
+                    <div class="feature-icon">📱</div>
+                    <h3>Tous vos écrans</h3>
+                    <p>L'application s'ajuste parfaitement à tous les écrans : ordinateur, tablette, téléphone.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projet Culturel -->
+        <section class="cultural" id="projet">
+            <div class="cultural-content reveal">
+                <div class="cultural-badge">Projet culturel</div>
+                <h2>Le créole guyanais mérite sa place dans le monde numérique.</h2>
+                <p>Le créole guyanais, c'est bien plus qu'une langue. C'est un bien culturel, le lien entre les générations, une musique riche de la Guyane. Cette langue vivante manque cruellement d'outils numériques pour la découvrir, l'apprendre et la transmettre.</p>
+                <p><strong>Kréolyse</strong> est né de ce constat. Ce n'est pas un produit commercial. C'est une conviction : chacun peut accéder à cette langue, l'apprendre, la redécouvrir, jouer avec, en somme la garder vivante.</p>
+                <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr" target="_blank" rel="noopener noreferrer" class="cultural-license">
+                    <span class="license-icon">⚖️</span>
+                    <span>Licence Creative Commons CC BY-NC-SA 4.0</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </a>
+            </div>
+        </section>
+
+        <!-- Citation -->
+        <section class="quote-section">
+            <div class="quote-card reveal">
+                <div class="quote-mark">"</div>
+                <blockquote>
+                    Travailler sur ce projet est ma façon de partager avec vous la langue créole, pilier de l'identité et de la culture guyanaise. Bonne découverte et bonne traduction !
+                </blockquote>
+                <div class="quote-author">
+                    <div class="author-avatar">K</div>
+                    <div>
+                        <strong>Krystian</strong>
+                        <span>Fondateur de 7aiproductions - survivant de ses propres idées improbables</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Final -->
+        <section class="final-cta" id="essayer">
+            <div class="final-cta-content reveal">
+                <h2>Envie d'essayer ?</h2>
+                <p>Kréolyse est accessible en ligne, gratuitement, sans inscription.<br>Tapez un mot. Découvrez sa traduction. Et peut-être, apprenez un peu de créole guyanais aujourd'hui.</p>
+                <a href="https://kreolyse-mots.netlify.app" target="_blank" class="cta-btn primary large">
+                    <span>Lancer Kréolyse</span>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="https://i.postimg.cc/rw9n5YmL/logo-sousbloc.png" alt="Kréolyse" class="footer-logo-img">
+                <span>Kréolyse</span>
+            </div>
+            <p class="footer-text">Une application 7aiproductions</p>
+            <p class="footer-license">© Krystian — Licence CC BY-NC-SA 4.0</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

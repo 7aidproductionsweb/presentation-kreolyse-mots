@@ -272,6 +272,13 @@ main {
     background-clip: text;
 }
 
+.accent-violet {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
 .hero-subtitle {
     font-size: clamp(1rem, 2vw, 1.25rem);
     color: var(--text-muted);
@@ -965,6 +972,98 @@ footer {
     .step-card, .feature-card {
         padding: 2rem;
         border-radius: 20px;
+    }
+}
+
+/* --- SIMPLE STEPS (Comment ça marche) --- */
+.simple-steps {
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.simple-intro {
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+    letter-spacing: -0.3px;
+}
+
+.simple-flow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+}
+
+.simple-step {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 2rem 2.5rem;
+    width: 100%;
+    backdrop-filter: var(--backdrop);
+    -webkit-backdrop-filter: var(--backdrop);
+    transition: all 0.3s ease;
+    text-align: left;
+}
+
+.simple-step:hover {
+    background: var(--card-bg-hover);
+    border-color: var(--card-border-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--card-shadow);
+}
+
+.simple-num {
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    flex-shrink: 0;
+}
+
+.simple-text {
+    font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+    font-weight: 700;
+    line-height: 1.3;
+    display: flex;
+    flex-direction: column;
+}
+
+.instant-text {
+    font-size: clamp(1.5rem, 3vw, 2.4rem);
+    font-weight: 900;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-top: 0.2rem;
+}
+
+.simple-arrow {
+    font-size: 2rem;
+    color: var(--accent);
+    padding: 0.75rem 0;
+    opacity: 0.5;
+    line-height: 1;
+}
+
+@media (max-width: 768px) {
+    .simple-step {
+        padding: 1.5rem;
+        gap: 1rem;
+    }
+    .simple-num {
+        font-size: 2.8rem;
     }
 }
 

@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mission Kréolyse — Quiz Créole Guyanais</title>
+  <meta name="description" content="Teste tes connaissances en créole guyanais avec Mission Kréolyse ! 10 défis, 100 points, 1 badge final.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      min-height: 100dvh;
+      background: #0d0820;
+      color: #f0f0f5;
+      overflow-x: hidden;
+    }
+
+    /* Background */
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background: radial-gradient(ellipse at 50% 0%, #4a2fa0 0%, #271a6a 45%, #0d0820 100%);
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Nav */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 1.5rem;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      flex-shrink: 0;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: #f0f0f5;
+      text-decoration: none;
+    }
+
+    .nav-logo img {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+    }
+
+    .nav-back {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      color: rgba(240, 240, 245, 0.6);
+      text-decoration: none;
+      padding: 0.45rem 0.9rem;
+      min-height: 44px;
+      border-radius: 100px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.2s;
+    }
+
+    .nav-back:hover {
+      color: #f0f0f5;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    /* Main container */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem 8rem;
+      padding-bottom: max(8rem, calc(env(safe-area-inset-bottom) + 8rem));
+      width: 100%;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* ============================
+       INTRO SCREEN
+    ============================ */
+    #screen-intro {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1.75rem;
+      padding-top: 1.5rem;
+      animation: fadeInUp 0.5s ease;
+    }
+
+    .intro-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(161, 107, 254, 0.12);
+      border: 1px solid rgba(161, 107, 254, 0.28);
+      border-radius: 100px;
+      padding: 0.4rem 1.1rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #c4a3ff;
+      letter-spacing: 0.3px;
+    }
+
+    .intro-title {
+      font-size: clamp(2.2rem, 8vw, 3.5rem);
+      font-weight: 900;
+      letter-spacing: -1.5px;
+      line-height: 1.05;
+    }
+
+    .intro-title .accent { color: #a16bfe; }
+
+    .intro-subtitle {
+      font-size: 1rem;
+      color: rgba(240, 240, 245, 0.65);
+      max-width: 420px;
+      line-height: 1.75;
+    }
+
+    .intro-stats {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .intro-stat {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 0.6rem 1.1rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    .btn-start {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: linear-gradient(135deg, #7b5cff, #a16bfe);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: 1rem 2.75rem;
+      border: none;
+      border-radius: 100px;
+      cursor: pointer;
+      box-shadow: 0 8px 32px rgba(161, 107, 254, 0.4);
+      transition: all 0.2s;
+      letter-spacing: -0.2px;
+    }
+
+    .btn-start:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 44px rgba(161, 107, 254, 0.55);
+    }
+
+    .btn-start:active { transform: scale(0.98); }
+
+    /* ============================
+       QUESTION SCREEN
+    ============================ */
+    #screen-question {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+      animation: fadeInUp 0.3s ease;
+    }
+
+    /* Progress */
+    .progress-wrap { width: 100%; }
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: rgba(240, 240, 245, 0.55);
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .progress-bar {
+      height: 7px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #84cc16, #22c55e);
+      border-radius: 100px;
+      transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Question card */
+    .question-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      border-radius: 22px;
+      padding: 1.6rem 1.5rem;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .question-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+    }
+
+    .q-badge {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(161, 107, 254, 0.13);
+      border: 1px solid rgba(161, 107, 254, 0.22);
+      border-radius: 100px;
+      padding: 0.2rem 0.7rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #c4a3ff;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .q-points {
+      font-size: 0.78rem;
+      color: rgba(240, 240, 245, 0.45);
+      margin-left: auto;
+    }
+
+    .question-text {
+      font-size: clamp(0.98rem, 3vw, 1.15rem);
+      font-weight: 600;
+      line-height: 1.55;
+      margin-bottom: 1.4rem;
+    }
+
+    .question-text em { color: #c4a3ff; font-style: normal; }
+
+    /* MCQ options */
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .option-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      width: 100%;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1.5px solid rgba(255, 255, 255, 0.1);
+      border-radius: 13px;
+      padding: 0.8rem 1rem;
+      color: #f0f0f5;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.93rem;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, transform 0.1s;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .option-btn:active:not(:disabled) { transform: scale(0.99); }
+    .option-btn:disabled { cursor: default; }
+
+    .option-key {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      font-size: 0.78rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .option-btn.correct {
+      border-color: rgba(34, 211, 238, 0.5);
+      background: rgba(34, 211, 238, 0.07);
+      animation: popIn 0.2s ease;
+    }
+
+    .option-btn.correct .option-key {
+      background: rgba(34, 211, 238, 0.18);
+      border-color: rgba(34, 211, 238, 0.35);
+      color: #67e8f9;
+    }
+
+    .option-btn.wrong {
+      border-color: rgba(248, 113, 113, 0.5);
+      background: rgba(248, 113, 113, 0.07);
+      animation: shake 0.28s ease;
+    }
+
+    .option-btn.wrong .option-key {
+      background: rgba(248, 113, 113, 0.18);
+      border-color: rgba(248, 113, 113, 0.35);
+      color: #fca5a5;
+    }
+
+    /* Input question */
+    .input-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    .input-hint {
+      font-size: 0.8rem;
+      color: rgba(240, 240, 245, 0.45);
+    }
+
+    .answer-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1.5px solid rgba(255, 255, 255, 0.12);
+      border-radius: 13px;
+      padding: 0.85rem 1rem;
+      color: #f0f0f5;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .answer-input:focus { border-color: rgba(161, 107, 254, 0.5); }
+    .answer-input::placeholder { color: rgba(240, 240, 245, 0.28); }
+    .answer-input.correct { border-color: rgba(34, 211, 238, 0.5); background: rgba(34, 211, 238, 0.05); }
+    .answer-input.wrong   { border-color: rgba(248, 113, 113, 0.5); background: rgba(248, 113, 113, 0.05); }
+
+    .btn-submit {
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(161, 107, 254, 0.18);
+      border: 1.5px solid rgba(161, 107, 254, 0.32);
+      border-radius: 11px;
+      padding: 0.75rem 1.4rem;
+      min-height: 44px;
+      color: #c4a3ff;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-submit:hover:not(:disabled) {
+      background: rgba(161, 107, 254, 0.28);
+      border-color: rgba(161, 107, 254, 0.45);
+    }
+
+    .btn-submit:disabled { opacity: 0.38; cursor: default; }
+
+    /* Feedback */
+    .feedback {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 16px;
+      padding: 1rem 1.2rem;
+      font-size: 0.93rem;
+      line-height: 1.55;
+      animation: fadeInUp 0.22s ease;
+    }
+
+    .feedback.fb-correct { border-color: rgba(34, 211, 238, 0.28); background: rgba(34, 211, 238, 0.05); }
+    .feedback.fb-wrong   { border-color: rgba(248, 113, 113, 0.28); background: rgba(248, 113, 113, 0.05); }
+
+    .feedback-icon { font-size: 1.25rem; flex-shrink: 0; margin-top: 1px; }
+
+    /* Next button */
+    .btn-next {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      width: 100%;
+      background: linear-gradient(135deg, #7b5cff, #a16bfe);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 0.95rem;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      box-shadow: 0 6px 24px rgba(161, 107, 254, 0.32);
+      transition: all 0.2s;
+      letter-spacing: -0.1px;
+    }
+
+    .btn-next:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 36px rgba(161, 107, 254, 0.48);
+    }
+
+    .btn-next:active { transform: scale(0.99); }
+
+    /* ============================
+       RESULTS SCREEN
+    ============================ */
+    #screen-results {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1.5rem;
+      padding-top: 1.5rem;
+      animation: fadeInUp 0.5s ease;
+    }
+
+    .results-icon {
+      font-size: 4.5rem;
+      animation: bounceIn 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .results-score-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2rem;
+    }
+
+    .results-score-num {
+      font-size: 4rem;
+      font-weight: 900;
+      color: #a16bfe;
+      line-height: 1;
+      letter-spacing: -2px;
+    }
+
+    .results-score-sub {
+      font-size: 0.82rem;
+      color: rgba(240, 240, 245, 0.45);
+    }
+
+    .results-title {
+      font-size: clamp(1.5rem, 5vw, 2rem);
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+    }
+
+    .results-msg {
+      font-size: 0.97rem;
+      color: rgba(240, 240, 245, 0.7);
+      max-width: 380px;
+      line-height: 1.75;
+    }
+
+    .results-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      width: 100%;
+      max-width: 320px;
+    }
+
+    .btn-replay {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, #7b5cff, #a16bfe);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.97rem;
+      font-weight: 700;
+      padding: 0.9rem;
+      border: none;
+      border-radius: 13px;
+      cursor: pointer;
+      box-shadow: 0 6px 24px rgba(161, 107, 254, 0.32);
+      transition: all 0.2s;
+    }
+
+    .btn-replay:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 32px rgba(161, 107, 254, 0.48);
+    }
+
+    .btn-app {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      border-radius: 13px;
+      padding: 0.9rem;
+      color: rgba(240, 240, 245, 0.75);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-app:hover {
+      background: rgba(255, 255, 255, 0.11);
+      color: #f0f0f5;
+    }
+
+    /* ============================
+       ANIMATIONS
+    ============================ */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes popIn {
+      0%   { transform: scale(1); }
+      50%  { transform: scale(1.02); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%       { transform: translateX(-6px); }
+      40%       { transform: translateX(6px); }
+      60%       { transform: translateX(-4px); }
+      80%       { transform: translateX(4px); }
+    }
+
+    @keyframes bounceIn {
+      0%   { transform: scale(0.3); opacity: 0; }
+      60%  { transform: scale(1.12); opacity: 1; }
+      100% { transform: scale(1); }
+    }
+
+    /* ── Toucan mascotte ── */
+    .toucan-mascot {
+      position: fixed;
+      bottom: 0;
+      right: clamp(0.5rem, 3vw, 2.5rem);
+      width: clamp(110px, 16vw, 180px);
+      z-index: 10;
+      pointer-events: none;
+      transform-origin: bottom center;
+      filter: drop-shadow(0 8px 28px rgba(0, 0, 0, 0.45));
+      transition: opacity 0.4s ease;
+    }
+
+    /* ── Badge débloqué ── */
+    .badge-unlock-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      animation: badgeReveal 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    .badge-img {
+      width: clamp(130px, 35vw, 190px);
+      object-fit: contain;
+      filter:
+        drop-shadow(0 0 18px rgba(251, 191, 36, 0.7))
+        drop-shadow(0 0 40px rgba(251, 191, 36, 0.35));
+    }
+
+    .badge-unlock-label {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: #fbbf24;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .badge-subtitle {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #f0f0f5;
+      letter-spacing: -0.3px;
+    }
+
+    @keyframes badgeReveal {
+      0%   { transform: scale(0.2) rotate(-25deg); opacity: 0; }
+      65%  { transform: scale(1.12) rotate(4deg);  opacity: 1; }
+      100% { transform: scale(1)   rotate(0deg);   opacity: 1; }
+    }
+
+    /* Record & Partage */
+    .record-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(251, 191, 36, 0.12);
+      border: 1px solid rgba(251, 191, 36, 0.32);
+      border-radius: 100px;
+      padding: 0.35rem 1rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #fbbf24;
+      animation: bounceIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .results-record-area {
+      min-height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-share {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1.5px solid rgba(255, 255, 255, 0.14);
+      border-radius: 13px;
+      padding: 0.9rem;
+      color: rgba(240, 240, 245, 0.78);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.93rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-share:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.24);
+      color: #f0f0f5;
+    }
+
+    .intro-record-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(251, 191, 36, 0.1);
+      border: 1px solid rgba(251, 191, 36, 0.25);
+      border-radius: 100px;
+      padding: 0.35rem 1.1rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #fbbf24;
+    }
+
+    .hidden { display: none !important; }
+
+    @media (min-width: 600px) {
+      main { padding: 2.5rem 1.5rem 8rem; }
+      .question-card { padding: 2rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="content">
+
+    <nav>
+      <a href="index.html" class="nav-logo">
+        <img src="https://i.postimg.cc/rw9n5YmL/logo-sousbloc.png" alt="Kréolyse">
+        Kréolyse
+      </a>
+      <a href="index.html" class="nav-back">← Retour</a>
+    </nav>
+
+    <main>
+
+      <!-- ======================== INTRO ======================== -->
+      <div id="screen-intro">
+        <div class="intro-badge">🎮 Jeu éducatif</div>
+        <h1 class="intro-title">MISSION<br><span class="accent">KRÉOLYSE</span></h1>
+        <p class="intro-subtitle">
+          Objectif : devenir <strong>Maître du Créole Guyanais</strong>.<br>
+          10 défis linguistiques. 100 points à décrocher.
+        </p>
+        <div class="intro-stats">
+          <div class="intro-stat">🧠 10 questions</div>
+          <div class="intro-stat">🎯 110 pts max</div>
+          <div class="intro-stat">🏆 Badge final</div>
+        </div>
+        <div id="intro-record" class="hidden"></div>
+        <button class="btn-start" id="btn-start">Annou alé ! →</button>
+      </div>
+
+      <!-- ======================== QUESTION ======================== -->
+      <div id="screen-question" class="hidden">
+
+        <div class="progress-wrap">
+          <div class="progress-info">
+            <span id="q-label">Question 1 / 10</span>
+            <span id="q-score-info">Score : 0 pt</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+          </div>
+        </div>
+
+        <div class="question-card" id="question-card">
+          <!-- Populated by JS -->
+        </div>
+
+        <div id="feedback-area" class="hidden"></div>
+
+        <button class="btn-next hidden" id="btn-next">
+          <span id="btn-next-label">Question suivante →</span>
+        </button>
+
+      </div>
+
+      <!-- ======================== RESULTS ======================== -->
+      <div id="screen-results" class="hidden">
+
+        <!-- Badge (affiché si score ≥ 90) -->
+        <div id="results-badge-wrap" class="badge-unlock-wrap hidden">
+          <div class="badge-unlock-label">🔓 Badge débloqué !</div>
+          <img
+            src="public/images/badge quizz.png"
+            alt="Badge Maître du Créole"
+            class="badge-img"
+            onerror="this.style.display='none'"
+          />
+          <div class="badge-subtitle">Maître du Créole Guyanais</div>
+        </div>
+
+        <!-- Icône emoji (affiché si score < 90) -->
+        <div class="results-icon" id="results-icon">🏆</div>
+
+        <div class="results-score-block">
+          <div class="results-score-num" id="results-score-num">0</div>
+          <div class="results-score-sub">/ 110 points</div>
+        </div>
+        <h2 class="results-title" id="results-title"></h2>
+        <p class="results-msg" id="results-msg"></p>
+        <div class="results-record-area">
+          <div id="results-record"></div>
+        </div>
+        <div class="results-actions">
+          <button class="btn-replay" id="btn-replay">🔄 Rejouer la mission</button>
+          <button class="btn-share" id="btn-share">📤 Partager mon score</button>
+          <a href="https://kreolyse-mots.netlify.app" class="btn-app" target="_blank">
+            📚 Ouvrir l'assistant Kréolyse
+          </a>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Toucan mascotte — fixe bas d'écran, visible pendant les questions -->
+  <img
+    id="toucan-mascot"
+    src="public/images/Toucan mascotte.png"
+    alt="Toucan Kréolyse"
+    class="toucan-mascot hidden"
+  />
+
+  <script>
+    const KEYS = ["A", "B", "C", "D"];
+
+    const QUESTIONS = [
+      {
+        id: 1,
+        type: "mcq",
+        badge: "QCM",
+        question: 'Comment dit-on : <em>"mon enfant"</em> ?',
+        options: ["timoun mo", "mo timoun", "mo timoun-an", "zanfan mo"],
+        answer: 1,
+        points: 10,
+        ok: "🔥 Wouhou ! Ou ka koumansé fò !",
+        ko: "😅 Oups… En créole, le possessif vient avant le nom !"
+      },
+      {
+        id: 2,
+        type: "mcq",
+        badge: "Piège des lieux",
+        question: "Quelle phrase est correcte ?",
+        options: [
+          "Mo timoun épi lékòl",
+          "Mo timoun lékòl",
+          "Mo timoun ka lékòl",
+          "Mo timoun annan lékòl"
+        ],
+        answer: 1,
+        points: 10,
+        ok: "🎯 Exact ! Pas de préposition pour un lieu simple !",
+        ko: '🧠 Attention… Lékòl est un lieu simple → pas de "épi" !'
+      },
+      {
+        id: 3,
+        type: "mcq",
+        badge: "Particule magique",
+        question: 'Nina ___ travay.<br><small style="color:rgba(240,240,245,.5);font-weight:400">Elle travaille en ce moment</small>',
+        options: ["té", "ké", "ka"],
+        answer: 2,
+        points: 10,
+        ok: '💡 Wi ! "ka" = action en cours !',
+        ko: 'Presque ! "ké" c\'est le futur, "té" le passé 😉'
+      },
+      {
+        id: 4,
+        type: "mcq",
+        badge: "Orthographe",
+        question: "Quelle est la bonne écriture ?",
+        options: ["lécole", "lécoll", "lékòl", "l'école"],
+        answer: 2,
+        points: 10,
+        ok: "🧠 Pa gen lèt ki pa ka sonnen !",
+        ko: 'En créole guyanais, on écrit "lékòl" avec les accents créoles.'
+      },
+      {
+        id: 5,
+        type: "input",
+        badge: "Traduction libre",
+        question: "<em>Je vais chez ma maman</em>",
+        answer: "mo ka alé koté mo manman",
+        accept: ["mo ka ale kote mo manman", "mo ka alé koté mo manman"],
+        points: 10,
+        ok: "🚀 Sa menm ! Ou ka monté nivo !",
+        ko: '💡 Indice : "chez" = koté | "je vais" = mo ka alé'
+      },
+      {
+        id: 6,
+        type: "mcq",
+        badge: "Correction d'erreur",
+        question: 'Phrase : <em>Chyen-an ja japé fò asou lannwit-tala.</em><br><small style="color:rgba(240,240,245,.5);font-weight:400">Qu\'est-ce qui serait plus naturel ?</small>',
+        options: [
+          'Retirer "ja"',
+          "Ajouter i → Chyen-an i japé",
+          "Remplacer par sa lannwit-a",
+          "B et C"
+        ],
+        answer: 3,
+        points: 10,
+        ok: "👑 Ou ja ka réfléchi kou roun vré Kreolyseur !",
+        ko: 'Les deux : ajout du pronom "i" + simplification du déterminant → sa lannwit-a.'
+      },
+      {
+        id: 7,
+        type: "mcq",
+        badge: "Futur",
+        question: "<em>Il partira.</em> — Comment le dire en créole ?",
+        options: ["i ka pati", "i té pati", "i ké pati", "i pati"],
+        answer: 2,
+        points: 10,
+        ok: '⚡ Fòs ! "ké" = futur maîtrisé.',
+        ko: '"ké" marque le futur. "ka" = présent, "té" = passé.'
+      },
+      {
+        id: 8,
+        type: "mcq",
+        badge: "Démonstratif",
+        question: "___ mang-yan chwit.<br><small style=\"color:rgba(240,240,245,.5);font-weight:400\">Cette mangue est bonne.</small>",
+        options: ["Sa", "Mo", "Li", "Sé"],
+        answer: 0,
+        points: 10,
+        ok: '🎯 Wi ! "Sa" = ce/cette en créole guyanais.',
+        ko: '"Sa" est le démonstratif pour désigner un objet précis.'
+      },
+      {
+        id: 9,
+        type: "mcq",
+        badge: "Culture",
+        question: 'Pourquoi il n\'y a pas de verbe "être" dans : <em>Mo timoun lékòl</em> ?',
+        options: [
+          "Oubli",
+          "Simplification",
+          "Structure nominale normale",
+          "Erreur"
+        ],
+        answer: 2,
+        points: 10,
+        ok: "🧠 Exactement ! Structure nominale naturelle sans verbe être.",
+        ko: 'Le créole guyanais utilise une structure nominale naturelle — le verbe "être" est absent par nature.'
+      },
+      {
+        id: 10,
+        type: "input",
+        badge: "⚔️ Boss final",
+        question: "<em>Demain Emile ira à l'école.</em>",
+        answer: "dimen emile ké alé lékòl",
+        accept: ["dimen emile ke ale lekol", "dimen emile ké alé lékòl", "dimen emile ke ale lekol."],
+        points: 20,
+        ok: "👑 OU SA ROUN VRÉ KREOLYSEUR ! Mission accomplie !",
+        ko: '"demain" = dimen | "ira" = ké alé | "à l\'école" = lékòl'
+      }
+    ];
+
+    // ── Sound (Web Audio API — aucun fichier requis) ───
+    let _audioCtx = null;
+
+    function _ctx() {
+      if (!_audioCtx) _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (_audioCtx.state === "suspended") _audioCtx.resume();
+      return _audioCtx;
+    }
+
+    function _tone(freq, type, vol, dur, delay = 0) {
+      try {
+        const ctx = _ctx();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.type = type;
+        osc.frequency.value = freq;
+        const t = ctx.currentTime + delay;
+        gain.gain.setValueAtTime(vol, t);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+        osc.start(t);
+        osc.stop(t + dur + 0.01);
+      } catch (_) {}
+    }
+
+    function sfxSuccess() {
+      _tone(523.25, "sine", 0.25, 0.18);
+      _tone(659.25, "sine", 0.25, 0.18, 0.14);
+      _tone(783.99, "sine", 0.28, 0.28, 0.28);
+    }
+
+    function sfxError() {
+      _tone(220, "sawtooth", 0.22, 0.12);
+      _tone(175, "sawtooth", 0.18, 0.22, 0.13);
+    }
+
+    function sfxWin() {
+      [523.25, 659.25, 783.99, 1046.5, 1318.51].forEach((f, i) => {
+        _tone(f, "sine", 0.22, 0.4, i * 0.13);
+      });
+    }
+
+    // ── Toucan images (swap system) ─────────────────────
+    const TOUCAN = {
+      idle:    "public/images/Toucan mascotte.png",
+      happy:   "public/images/Toucan happy.png",
+      oops:    "public/images/Toucan oops.png",
+      boss:    "public/images/Toucan boss.png",
+      congrat: "public/images/toucan congrat.png"
+    };
+
+    // ── Best score (localStorage) ───────────────────────
+    const BEST_KEY = "kreolyse_best_score";
+
+    function getBest() {
+      return parseInt(localStorage.getItem(BEST_KEY) || "0", 10);
+    }
+
+    function saveBest(n) {
+      const prev = getBest();
+      if (n > prev) { localStorage.setItem(BEST_KEY, n); return true; }
+      return false;
+    }
+
+    function refreshIntroRecord() {
+      const best = getBest();
+      const el = document.getElementById("intro-record");
+      if (best > 0) {
+        el.innerHTML = `<span class="intro-record-chip">🏆 Ton record : ${best} / 110 pts</span>`;
+        el.classList.remove("hidden");
+      } else {
+        el.classList.add("hidden");
+      }
+    }
+
+    // ── Partage de score ────────────────────────────────
+    function shareScore() {
+      const badge = score >= 90 ? "👑" : score >= 70 ? "💪" : score >= 50 ? "🙂" : "💡";
+      const text = `${badge} J'ai obtenu ${score}/110 au Quizz Kréolyse !\n🎮 Mission Kréolyse — 10 défis en créole guyanais.\nTu relèves le défi ? → ${window.location.href}`;
+      const btn = document.getElementById("btn-share");
+
+      if (navigator.share) {
+        navigator.share({ title: "Mission Kréolyse — Quizz", text }).catch(() => {});
+      } else {
+        navigator.clipboard.writeText(text).then(() => {
+          const prev = btn.innerHTML;
+          btn.innerHTML = "✅ Copié dans le presse-papier !";
+          setTimeout(() => { btn.innerHTML = prev; }, 2500);
+        }).catch(() => {
+          prompt("Copie ce texte et partage-le :", text);
+        });
+      }
+    }
+
+    // ── State ──────────────────────────────────────────
+    let currentQ = 0;
+    let score = 0;
+    let answered = false;
+
+    // ── DOM refs ───────────────────────────────────────
+    const screens = {
+      intro:    document.getElementById("screen-intro"),
+      question: document.getElementById("screen-question"),
+      results:  document.getElementById("screen-results")
+    };
+    const $qLabel       = document.getElementById("q-label");
+    const $qScoreInfo   = document.getElementById("q-score-info");
+    const $progressFill = document.getElementById("progress-fill");
+    const $questionCard = document.getElementById("question-card");
+    const $feedbackArea = document.getElementById("feedback-area");
+    const $btnNext      = document.getElementById("btn-next");
+    const $btnNextLabel = document.getElementById("btn-next-label");
+
+    // ── Helpers ────────────────────────────────────────
+    function normalize(str) {
+      return str
+        .toLowerCase()
+        .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+        .replace(/[.,!?;:'"]/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    const $toucan = document.getElementById("toucan-mascot");
+    let _toucanTimer = null;
+
+    function toucanShow() { $toucan.style.display = ""; $toucan.classList.remove("hidden"); }
+    function toucanHide() { $toucan.classList.add("hidden"); }
+
+    function toucanMood(mood) {
+      clearTimeout(_toucanTimer);
+      $toucan.src = TOUCAN[mood] || TOUCAN.idle;
+      // Après une réaction courte, retour à l'état de base de la question
+      if (mood === "happy" || mood === "oops") {
+        const back = (QUESTIONS[currentQ].id >= 8) ? "boss" : "idle";
+        _toucanTimer = setTimeout(() => { $toucan.src = TOUCAN[back]; }, 1200);
+      }
+    }
+
+    function showScreen(name) {
+      Object.values(screens).forEach(s => s.classList.add("hidden"));
+      screens[name].classList.remove("hidden");
+      if (name === "question") toucanShow(); else toucanHide();
+    }
+
+    // ── Render question ────────────────────────────────
+    function renderQuestion() {
+      answered = false;
+      const q = QUESTIONS[currentQ];
+      const total = QUESTIONS.length;
+
+      // Toucan : boss à partir de Q8, idle pour le reste
+      toucanMood(q.id >= 8 ? "boss" : "idle");
+
+      $qLabel.textContent     = `Question ${currentQ + 1} / ${total}`;
+      $qScoreInfo.textContent = `Score : ${score} pt`;
+      $progressFill.style.width = `${(currentQ / total) * 100}%`;
+
+      $btnNext.classList.add("hidden");
+      $feedbackArea.classList.add("hidden");
+      $feedbackArea.innerHTML = "";
+
+      $questionCard.innerHTML = `
+        <div class="question-meta">
+          <span class="q-badge">${q.badge}</span>
+          <span class="q-points">+${q.points} pts</span>
+        </div>
+        <div class="question-text">${q.question}</div>
+        ${q.type === "mcq" ? renderMCQ(q) : renderInput(q)}
+      `;
+
+      if (q.type === "mcq") {
+        document.querySelectorAll(".option-btn").forEach((btn, i) => {
+          btn.addEventListener("click", () => handleMCQAnswer(i, q));
+        });
+      } else {
+        const inputEl  = document.getElementById("answer-input");
+        const submitEl = document.getElementById("submit-input");
+        const trySubmit = () => { if (!answered) handleInputAnswer(inputEl.value, q); };
+        submitEl.addEventListener("click", trySubmit);
+        inputEl.addEventListener("keydown", e => { if (e.key === "Enter") trySubmit(); });
+        inputEl.focus();
+      }
+
+      $btnNextLabel.textContent = currentQ < QUESTIONS.length - 1
+        ? "Question suivante →"
+        : "Voir mon score 🏁";
+    }
+
+    function renderMCQ(q) {
+      return `<div class="options-grid">${
+        q.options.map((opt, i) => `
+          <button class="option-btn" data-index="${i}">
+            <span class="option-key">${KEYS[i]}</span>
+            <span>${opt}</span>
+          </button>`).join("")
+      }</div>`;
+    }
+
+    function renderInput(q) {
+      return `
+        <div class="input-wrap">
+          <div class="input-hint">Écrivez votre traduction en créole guyanais :</div>
+          <input
+            type="text"
+            class="answer-input"
+            id="answer-input"
+            placeholder="Ta réponse ici…"
+            autocomplete="off"
+            autocorrect="off"
+            spellcheck="false"
+          />
+          <button class="btn-submit" id="submit-input">Valider ✓</button>
+        </div>`;
+    }
+
+    // ── Answer handling ────────────────────────────────
+    function handleMCQAnswer(selectedIndex, q) {
+      if (answered) return;
+      answered = true;
+
+      const correct = selectedIndex === q.answer;
+      if (correct) score += q.points;
+
+      document.querySelectorAll(".option-btn").forEach((btn, i) => {
+        btn.disabled = true;
+        if (i === q.answer) btn.classList.add("correct");
+        if (i === selectedIndex && !correct) btn.classList.add("wrong");
+      });
+
+      showFeedback(correct, q);
+    }
+
+    function handleInputAnswer(value, q) {
+      if (answered) return;
+      answered = true;
+
+      const inputEl  = document.getElementById("answer-input");
+      const submitEl = document.getElementById("submit-input");
+      const norm     = normalize(value);
+      const expected = normalize(q.answer);
+      const correct  = norm === expected || (q.accept || []).some(a => normalize(a) === norm);
+
+      if (correct) {
+        score += q.points;
+        inputEl.classList.add("correct");
+      } else {
+        inputEl.classList.add("wrong");
+      }
+
+      inputEl.disabled  = true;
+      submitEl.disabled = true;
+      showFeedback(correct, q);
+    }
+
+    function showFeedback(correct, q) {
+      if (correct) { sfxSuccess(); toucanMood("happy"); }
+      else         { sfxError();   toucanMood("oops"); }
+      $feedbackArea.innerHTML = `
+        <div class="feedback ${correct ? "fb-correct" : "fb-wrong"}">
+          <span class="feedback-icon">${correct ? "✅" : "❌"}</span>
+          <span>${correct ? q.ok : q.ko}</span>
+        </div>`;
+      $feedbackArea.classList.remove("hidden");
+      $btnNext.classList.remove("hidden");
+      $qScoreInfo.textContent = `Score : ${score} pt`;
+    }
+
+    function nextQuestion() {
+      currentQ++;
+      if (currentQ >= QUESTIONS.length) {
+        showResults();
+      } else {
+        // Re-animate the question card
+        screens.question.style.animation = "none";
+        requestAnimationFrame(() => {
+          screens.question.style.animation = "";
+          renderQuestion();
+        });
+      }
+    }
+
+    function showResults() {
+      $progressFill.style.width = "100%";
+
+      let icon, title, msg;
+      if (score >= 90) {
+        icon = "👑"; title = "OU SÉ ROUN DOKO KRÉYÒL !";
+        msg = "Incroyable ! Tu maîtrises le créole guyanais. La langue est entre de bonnes mains !";
+      } else if (score >= 70) {
+        icon = "💪"; title = "Ou ja byen fò !";
+        msg = "Très bon score ! Tu connais bien les bases du créole guyanais. Continue comme ça !";
+      } else if (score >= 50) {
+        icon = "🙂"; title = "Bon kòmansman !";
+        msg = "Pas mal ! Quelques révisions et tu seras au top. Kréolyse est là pour t'aider.";
+      } else {
+        icon = "💡"; title = "Pa lagé !";
+        msg = "Kreolyse la pou fè ou brilé ! Entraîne-toi avec le lexique et reviens.";
+      }
+
+      document.getElementById("results-icon").textContent      = icon;
+      document.getElementById("results-title").textContent     = title;
+      document.getElementById("results-score-num").textContent = score;
+      document.getElementById("results-msg").textContent       = msg;
+
+      // Badge ou icône selon le score
+      const $badgeWrap = document.getElementById("results-badge-wrap");
+      const $icon      = document.getElementById("results-icon");
+      if (score >= 90) {
+        $badgeWrap.classList.remove("hidden");
+        $icon.classList.add("hidden");
+      } else {
+        $badgeWrap.classList.add("hidden");
+        $icon.classList.remove("hidden");
+      }
+
+      // Record persistant
+      const isNew = saveBest(score);
+      const $rec  = document.getElementById("results-record");
+      const best  = getBest();
+      if (isNew && score > 0) {
+        $rec.innerHTML = '<span class="record-badge">🏆 Nouveau record personnel !</span>';
+      } else if (best > 0 && score < best) {
+        $rec.innerHTML = `<span style="font-size:0.82rem;color:rgba(240,240,245,0.48)">Ton record : ${best} / 110 pts</span>`;
+      } else {
+        $rec.innerHTML = "";
+      }
+
+      // Séquence finale : congrat (1.5s) → écran résultats
+      if (score >= 90) {
+        toucanMood("congrat");
+        sfxWin();
+        setTimeout(() => showScreen("results"), 1500);
+      } else {
+        sfxWin();
+        showScreen("results");
+      }
+    }
+
+    function resetQuiz() {
+      currentQ = 0;
+      score    = 0;
+      answered = false;
+      showScreen("question");
+      renderQuestion();
+    }
+
+    // ── Events ─────────────────────────────────────────
+    document.getElementById("btn-start").addEventListener("click", () => {
+      showScreen("question");
+      renderQuestion();
+    });
+    document.getElementById("btn-next").addEventListener("click", nextQuestion);
+    document.getElementById("btn-replay").addEventListener("click", resetQuiz);
+    document.getElementById("btn-share").addEventListener("click", shareScore);
+
+    // Affiche le record dès l'ouverture de la page
+    refreshIntroRecord();
+  </script>
+</body>
+</html>

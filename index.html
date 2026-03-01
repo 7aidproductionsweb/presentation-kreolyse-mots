@@ -9,7 +9,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
     <!-- Three.js 3D Background -->
@@ -81,9 +80,30 @@
             </div>
         </section>
 
+        <!-- Quiz Banner -->
+        <section class="quiz-banner reveal" id="quiz">
+            <div class="quiz-banner-inner">
+                <div class="quiz-banner-left">
+                    <div class="quiz-banner-badge">🎮 Quizz interactif</div>
+                    <h2 class="quiz-banner-title">QUIZZ Kréolyse V1</h2>
+                    <p class="quiz-banner-sub">Teste tes connaissances en créole guyanais.<br>10 défis · 110 points · 1 badge final</p>
+                </div>
+                <img
+                    src="public/images/toucan.png"
+                    alt="Mascotte Kréolyse"
+                    class="quiz-banner-toucan"
+                    onerror="this.style.display='none'"
+                />
+                <a href="quiz.html" class="quiz-banner-btn">
+                    <span>Annou alé !</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+            </div>
+        </section>
+
         <!-- Comment ça marche -->
         <section class="how-it-works" id="fonctionnement">
-            <h2 class="section-title reveal">Comment ça marche ?</h2>
+            <h2 class="section-title reveal">Kréolyse : comment ça marche ?</h2>
             <div class="simple-steps reveal">
                 <p class="simple-intro">C'est simple :</p>
                 <div class="simple-flow">
@@ -143,7 +163,7 @@
             <div class="cultural-content reveal">
                 <div class="cultural-badge">Projet culturel</div>
                 <h2>Le créole guyanais mérite sa place dans le monde numérique.</h2>
-                <p>Le créole guyanais, c'est bien plus qu'une langue. C'est un bien culturel, un lien entre les générations, une musique riche de la Guyane. Cette langue vivante manque cruellement d'outils numériques pour la découvrir, l'apprendre et pour la transmettre.</p>
+                <p>Le créole guyanais, c'est bien plus qu'une langue. C'est un bien culturel, le lien entre les générations, une musique riche de la Guyane. Cette langue vivante manque cruellement d'outils numériques pour la découvrir, l'apprendre et la transmettre.</p>
                 <p><strong>Kréolyse</strong> est né de ce constat. Ce n'est pas un produit commercial. C'est une conviction : chacun peut accéder à cette langue, l'apprendre, la redécouvrir, en jouer, en somme contribuer à la garder vivante.</p>
                 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr" target="_blank" rel="noopener noreferrer" class="cultural-license">
                     <span class="license-icon">⚖️</span>
@@ -190,10 +210,11 @@
                 <span>Kréolyse</span>
             </div>
             <p class="footer-text">Une application 7aiproductions</p>
-            <p class="footer-license">© Krystian — Lexique sous Licence CC BY-NC-SA 4.0 - 7aiproductions@gmail.com</p>
+            <p class="footer-license">© Krystian | TOUS DROITS RÉSERVÉS | 2026</p>
         </div>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

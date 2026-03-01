@@ -3,9 +3,6 @@
    Design inspiré Threads (dark) + Eco (typo)
    ============================================ */
 
-/* --- Google Font --- */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-
 /* --- Variables CSS : Thème Sombre (défaut) --- */
 :root[data-theme="dark"] {
     --bg-color: #050508;
@@ -1089,4 +1086,154 @@ footer {
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--text-muted);
+}
+
+/* ============================================
+   QUIZ BANNER — Doré / Ambre
+   ============================================ */
+.quiz-banner {
+    padding: 0 5%;
+    margin-bottom: 2rem;
+}
+
+.quiz-banner-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.14) 0%, rgba(234, 179, 8, 0.07) 100%);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    border-radius: 24px;
+    padding: 2rem 2.5rem;
+    backdrop-filter: var(--backdrop);
+    -webkit-backdrop-filter: var(--backdrop);
+    box-shadow: 0 8px 40px rgba(245, 158, 11, 0.13), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+    transition: border-color 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Reflet doré en haut à gauche */
+.quiz-banner-inner::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(251, 191, 36, 0.18) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.quiz-banner-inner:hover {
+    border-color: rgba(245, 158, 11, 0.55);
+    box-shadow: 0 14px 54px rgba(245, 158, 11, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+.quiz-banner-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+    min-width: 0;
+}
+
+.quiz-banner-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(245, 158, 11, 0.15);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    border-radius: 100px;
+    padding: 0.25rem 0.85rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #fbbf24;
+    letter-spacing: 0.3px;
+    width: fit-content;
+}
+
+.quiz-banner-title {
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    color: var(--text-color);
+}
+
+/* Sous-titre avec hover animé */
+.quiz-banner-sub {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    cursor: default;
+    display: inline-block;
+    transition: color 0.3s ease, text-shadow 0.3s ease, letter-spacing 0.3s ease;
+}
+
+.quiz-banner-sub:hover {
+    color: #fbbf24;
+    text-shadow: 0 0 22px rgba(251, 191, 36, 0.65);
+    letter-spacing: 0.3px;
+}
+
+/* Toucan — visible dès que public/images/toucan.png est déposé */
+.quiz-banner-toucan {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+    flex-shrink: 0;
+    filter: drop-shadow(0 4px 16px rgba(245, 158, 11, 0.35));
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.quiz-banner-inner:hover .quiz-banner-toucan {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+.quiz-banner-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: linear-gradient(135deg, #d97706, #f59e0b);
+    color: #1a0e00;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    padding: 0.9rem 2rem;
+    border-radius: 100px;
+    text-decoration: none;
+    white-space: nowrap;
+    box-shadow: 0 6px 28px rgba(245, 158, 11, 0.44);
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.quiz-banner-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(245, 158, 11, 0.62);
+}
+
+.quiz-banner-btn:active {
+    transform: scale(0.98);
+}
+
+@media (max-width: 600px) {
+    .quiz-banner-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.5rem 1.5rem;
+    }
+
+    .quiz-banner-toucan {
+        width: 70px;
+        height: 70px;
+        align-self: flex-end;
+        margin-top: -0.5rem;
+    }
+
+    .quiz-banner-btn {
+        width: 100%;
+        justify-content: center;
+    }
 }

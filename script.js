@@ -25,82 +25,100 @@ themeToggleBtn.addEventListener('click', () => {
 
 // -----------------------------------------
 // 2. THREE.JS — PARTICULES & ANNEAUX
+//    Protégé par try/catch : si WebGL échoue,
+//    le reste du site fonctionne normalement.
 // -----------------------------------------
+let webglOK = false;
+let scene, camera, renderer, particles, particlesMaterial;
+let ring, ringMaterial, ring2, ring2Material;
+let ambientLight, pointLight1, pointLight2;
+let clock;
+
 const container = document.getElementById('canvas-container');
-const scene = new THREE.Scene();
 
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.z = 18;
-if (window.innerWidth > 768) camera.position.x = 5;
+try {
+    scene = new THREE.Scene();
 
-const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-container.appendChild(renderer.domElement);
+    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 18;
+    if (window.innerWidth > 768) camera.position.x = 5;
 
-// Lumières
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
-scene.add(ambientLight);
+    renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    container.appendChild(renderer.domElement);
 
-const pointLight1 = new THREE.PointLight(0xa16bfe, 2.5);
-pointLight1.position.set(15, 10, 15);
-scene.add(pointLight1);
+    // Lumières
+    ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+    scene.add(ambientLight);
 
-const pointLight2 = new THREE.PointLight(0x7b5cff, 1.5);
-pointLight2.position.set(-15, -8, 10);
-scene.add(pointLight2);
+    pointLight1 = new THREE.PointLight(0xa16bfe, 2.5);
+    pointLight1.position.set(15, 10, 15);
+    scene.add(pointLight1);
 
-// Particules flottantes
-const particlesCount = 600;
-const particlesGeometry = new THREE.BufferGeometry();
-const posArray = new Float32Array(particlesCount * 3);
+    pointLight2 = new THREE.PointLight(0x7b5cff, 1.5);
+    pointLight2.position.set(-15, -8, 10);
+    scene.add(pointLight2);
 
-for (let i = 0; i < particlesCount; i++) {
-    posArray[i * 3] = (Math.random() - 0.5) * 60;
-    posArray[i * 3 + 1] = (Math.random() - 0.5) * 60;
-    posArray[i * 3 + 2] = (Math.random() - 0.5) * 40;
+    // Particules flottantes
+    const particlesCount = 600;
+    const particlesGeometry = new THREE.BufferGeometry();
+    const posArray = new Float32Array(particlesCount * 3);
+
+    for (let i = 0; i < particlesCount; i++) {
+        posArray[i * 3] = (Math.random() - 0.5) * 60;
+        posArray[i * 3 + 1] = (Math.random() - 0.5) * 60;
+        posArray[i * 3 + 2] = (Math.random() - 0.5) * 40;
+    }
+
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+    particlesMaterial = new THREE.PointsMaterial({
+        size: 0.06,
+        color: 0xa16bfe,
+        transparent: true,
+        opacity: 0.5,
+        blending: THREE.AdditiveBlending,
+        sizeAttenuation: true,
+    });
+
+    particles = new THREE.Points(particlesGeometry, particlesMaterial);
+    scene.add(particles);
+
+    // Anneau orbital 1
+    const ringGeometry = new THREE.TorusGeometry(7, 0.04, 16, 200);
+    ringMaterial = new THREE.MeshBasicMaterial({
+        color: 0xa16bfe,
+        transparent: true,
+        opacity: 0.15,
+    });
+    ring = new THREE.Mesh(ringGeometry, ringMaterial);
+    ring.rotation.x = Math.PI * 0.4;
+    ring.rotation.y = Math.PI * 0.15;
+    scene.add(ring);
+
+    // Anneau orbital 2
+    const ring2Geometry = new THREE.TorusGeometry(9, 0.03, 16, 200);
+    ring2Material = new THREE.MeshBasicMaterial({
+        color: 0x7b5cff,
+        transparent: true,
+        opacity: 0.08,
+    });
+    ring2 = new THREE.Mesh(ring2Geometry, ring2Material);
+    ring2.rotation.x = Math.PI * 0.6;
+    ring2.rotation.y = -Math.PI * 0.2;
+    scene.add(ring2);
+
+    clock = new THREE.Clock();
+    webglOK = true;
+
+} catch (e) {
+    console.warn('WebGL non disponible — le site fonctionne sans fond 3D.', e);
 }
-
-particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-
-const particlesMaterial = new THREE.PointsMaterial({
-    size: 0.06,
-    color: 0xa16bfe,
-    transparent: true,
-    opacity: 0.5,
-    blending: THREE.AdditiveBlending,
-    sizeAttenuation: true,
-});
-
-const particles = new THREE.Points(particlesGeometry, particlesMaterial);
-scene.add(particles);
-
-// Anneau orbital 1
-const ringGeometry = new THREE.TorusGeometry(7, 0.04, 16, 200);
-const ringMaterial = new THREE.MeshBasicMaterial({
-    color: 0xa16bfe,
-    transparent: true,
-    opacity: 0.15,
-});
-const ring = new THREE.Mesh(ringGeometry, ringMaterial);
-ring.rotation.x = Math.PI * 0.4;
-ring.rotation.y = Math.PI * 0.15;
-scene.add(ring);
-
-// Anneau orbital 2
-const ring2Geometry = new THREE.TorusGeometry(9, 0.03, 16, 200);
-const ring2Material = new THREE.MeshBasicMaterial({
-    color: 0x7b5cff,
-    transparent: true,
-    opacity: 0.08,
-});
-const ring2 = new THREE.Mesh(ring2Geometry, ring2Material);
-ring2.rotation.x = Math.PI * 0.6;
-ring2.rotation.y = -Math.PI * 0.2;
-scene.add(ring2);
 
 // Transitions 3D thème
 function switchToLightMode3D() {
+    if (!webglOK) return;
     particlesMaterial.color.setHex(0x6c3cdf);
     particlesMaterial.opacity = 0.25;
     ringMaterial.color.setHex(0x6c3cdf);
@@ -114,6 +132,7 @@ function switchToLightMode3D() {
 }
 
 function switchToDarkMode3D() {
+    if (!webglOK) return;
     particlesMaterial.color.setHex(0xa16bfe);
     particlesMaterial.opacity = 0.5;
     ringMaterial.color.setHex(0xa16bfe);
@@ -369,9 +388,8 @@ tiltCards.forEach(card => {
 // -----------------------------------------
 // 9. BOUCLE D'ANIMATION THREE.JS
 // -----------------------------------------
-const clock = new THREE.Clock();
-
 function animate() {
+    if (!webglOK) return;
     requestAnimationFrame(animate);
     const elapsed = clock.getElapsedTime();
 
@@ -398,7 +416,7 @@ function animate() {
     renderer.render(scene, camera);
 }
 
-animate();
+if (webglOK) animate();
 
 // -----------------------------------------
 // 10. SCROLL REVEAL (Intersection Observer)
@@ -489,19 +507,23 @@ window.addEventListener('scroll', () => {
 // 14. RESPONSIVE
 // -----------------------------------------
 window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    if (webglOK) {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    }
 
     if (window.innerWidth > 768) {
-        camera.position.x = 5;
+        if (webglOK) camera.position.x = 5;
     } else {
-        camera.position.x = 0;
-        camera.position.z = 22;
+        if (webglOK) {
+            camera.position.x = 0;
+            camera.position.z = 22;
+        }
     }
 });
 
-if (window.innerWidth <= 768) {
+if (webglOK && window.innerWidth <= 768) {
     camera.position.x = 0;
     camera.position.z = 22;
 }

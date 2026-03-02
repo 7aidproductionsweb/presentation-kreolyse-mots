@@ -707,7 +707,7 @@
         <div class="intro-badge">🎮 Jeu éducatif</div>
         <h1 class="intro-title">MISSION<br><span class="accent">KRÉOLYSE</span></h1>
         <p class="intro-subtitle">
-          Objectif : devenir <strong>Maître du Créole Guyanais</strong>.<br>
+          Objectif : Vérifier vos connaissances <strong>en Créole Guyanais</strong>.<br>
           10 défis linguistiques. 100 points à décrocher.
         </p>
         <div class="intro-stats">
@@ -803,7 +803,7 @@
         options: ["timoun mo", "mo timoun", "mo timoun-an", "zanfan mo"],
         answer: 1,
         points: 10,
-        ok: "🔥 Wouhou ! Ou ka koumansé fò !",
+        ok: "🔥 Wo-bab ! Ou ka koumansé fò !",
         ko: "😅 Oups… En créole, le possessif vient avant le nom !"
       },
       {
@@ -820,7 +820,7 @@
         answer: 1,
         points: 10,
         ok: "🎯 Exact ! Pas de préposition pour un lieu simple !",
-        ko: '🧠 Attention… Lékòl est un lieu simple → pas de "épi" !'
+        ko: '🧠 Attention… "Lékòl" est un lieu simple → pas de "épi" !'
       },
       {
         id: 3,
@@ -830,7 +830,7 @@
         options: ["té", "ké", "ka"],
         answer: 2,
         points: 10,
-        ok: '💡 Wi ! "ka" = action en cours !',
+        ok: '💡 I bon ! "ka" = action en cours !',
         ko: 'Presque ! "ké" c\'est le futur, "té" le passé 😉'
       },
       {
@@ -850,9 +850,9 @@
         badge: "Traduction libre",
         question: "<em>Je vais chez ma maman</em>",
         answer: "mo ka alé koté mo manman",
-        accept: ["mo ka ale kote mo manman", "mo ka alé koté mo manman"],
+        accept: ["mo ka ale kote mo manman", "mo ka alé koté mo manman", "mo ka alé an kaz mo manman"],
         points: 10,
-        ok: "🚀 Sa menm ! Ou ka monté nivo !",
+        ok: "🚀 A Sa menm ! Ou ka monté nivo !",
         ko: '💡 Indice : "chez" = koté | "je vais" = mo ka alé'
       },
       {
@@ -861,9 +861,9 @@
         badge: "Correction d'erreur",
         question: 'Phrase : <em>Chyen-an ja japé fò asou lannwit-tala.</em><br><small style="color:rgba(240,240,245,.5);font-weight:400">Qu\'est-ce qui serait plus naturel ?</small>',
         options: [
-          'Retirer "ja"',
-          "Ajouter i → Chyen-an i japé",
-          "Remplacer par sa lannwit-a",
+          'Retirer la préposition "ja"',
+          "Ajouter i → pour : Chyen-an i japé",
+          "Remplacer lannwit-tala par sa lannwit-a",
           "B et C"
         ],
         answer: 3,
@@ -886,7 +886,7 @@
         id: 8,
         type: "mcq",
         badge: "Démonstratif",
-        question: "___ mang-yan chwit.<br><small style=\"color:rgba(240,240,245,.5);font-weight:400\">Cette mangue est bonne.</small>",
+        question: "___ mang-yan chwit.<br><small style=\"color:rgba(240,240,245,.5);font-weight:400\">Ces mangues sont délicieuses.</small>",
         options: ["Sa", "Mo", "Li", "Sé"],
         answer: 0,
         points: 10,
@@ -897,12 +897,12 @@
         id: 9,
         type: "mcq",
         badge: "Culture",
-        question: 'Pourquoi il n\'y a pas de verbe "être" dans : <em>Mo timoun lékòl</em> ?',
+        question: 'Pourquoi il n\'y a pas de verbe "être" dans : <em>Mo timoun légliz</em> ?',
         options: [
-          "Oubli",
-          "Simplification",
-          "Structure nominale normale",
-          "Erreur"
+          "Un Oubli",
+          "Une Simplification",
+          "C'est une Structure nominale normale en créole guyanais",
+          "C'est une erreur"
         ],
         answer: 2,
         points: 10,
@@ -1005,7 +1005,7 @@
       const btn = document.getElementById("btn-share");
 
       if (navigator.share) {
-        navigator.share({ title: "Mission Kréolyse — Quizz", text }).catch(() => {});
+        navigator.share({ title: "Mission Kréolyse — Quizz sur le Créole guyanais", text }).catch(() => {});
       } else {
         navigator.clipboard.writeText(text).then(() => {
           const prev = btn.innerHTML;

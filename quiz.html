@@ -707,7 +707,7 @@
         <div class="intro-badge">🎮 Jeu éducatif</div>
         <h1 class="intro-title">MISSION<br><span class="accent">KRÉOLYSE</span></h1>
         <p class="intro-subtitle">
-          Objectif : Vérifier vos connaissances <strong>en Créole Guyanais</strong>.<br>
+          Objectif : devenir <strong>Maître du Créole Guyanais</strong>.<br>
           10 défis linguistiques. 100 points à décrocher.
         </p>
         <div class="intro-stats">
@@ -749,14 +749,15 @@
 
         <!-- Badge (affiché si score ≥ 90) -->
         <div id="results-badge-wrap" class="badge-unlock-wrap hidden">
-          <div class="badge-unlock-label">🔓 Badge débloqué !</div>
+          <div id="badge-label" class="badge-unlock-label">🔓 Badge débloqué !</div>
           <img
+            id="badge-img"
             src="public/images/badge quizz.png"
-            alt="Badge Maître du Créole"
+            alt="Badge Kréolyse"
             class="badge-img"
             onerror="this.style.display='none'"
           />
-          <div class="badge-subtitle">Maître du Créole Guyanais</div>
+          <div id="badge-subtitle" class="badge-subtitle">Maître du Créole Guyanais</div>
         </div>
 
         <!-- Icône emoji (affiché si score < 90) -->
@@ -803,7 +804,7 @@
         options: ["timoun mo", "mo timoun", "mo timoun-an", "zanfan mo"],
         answer: 1,
         points: 10,
-        ok: "🔥 Wo-bab ! Ou ka koumansé fò !",
+        ok: "🔥 Wouhou ! Ou ka koumansé fò !",
         ko: "😅 Oups… En créole, le possessif vient avant le nom !"
       },
       {
@@ -820,7 +821,7 @@
         answer: 1,
         points: 10,
         ok: "🎯 Exact ! Pas de préposition pour un lieu simple !",
-        ko: '🧠 Attention… "Lékòl" est un lieu simple → pas de "épi" !'
+        ko: '🧠 Attention… Lékòl est un lieu simple → pas de "épi" !'
       },
       {
         id: 3,
@@ -830,7 +831,7 @@
         options: ["té", "ké", "ka"],
         answer: 2,
         points: 10,
-        ok: '💡 I bon ! "ka" = action en cours !',
+        ok: '💡 Wi ! "ka" = action en cours !',
         ko: 'Presque ! "ké" c\'est le futur, "té" le passé 😉'
       },
       {
@@ -850,20 +851,20 @@
         badge: "Traduction libre",
         question: "<em>Je vais chez ma maman</em>",
         answer: "mo ka alé koté mo manman",
-        accept: ["mo ka ale kote mo manman", "mo ka alé koté mo manman", "mo ka alé an kaz mo manman"],
+        accept: ["mo ka ale kote mo manman", "mo ka alé koté mo manman"],
         points: 10,
-        ok: "🚀 A Sa menm ! Ou ka monté nivo !",
+        ok: "🚀 Sa menm ! Ou ka monté nivo !",
         ko: '💡 Indice : "chez" = koté | "je vais" = mo ka alé'
       },
       {
         id: 6,
         type: "mcq",
         badge: "Correction d'erreur",
-        question: 'Phrase : <em>Chyen-an ja japé asou lannwit-tala.</em><br><small style="color:rgba(240,240,245,.5);font-weight:400">Qu\'est-ce qui serait plus naturel ?</small>',
+        question: 'Phrase : <em>Chyen-an ja japé fò asou lannwit-tala.</em><br><small style="color:rgba(240,240,245,.5);font-weight:400">Qu\'est-ce qui serait plus naturel ?</small>',
         options: [
-          'Conserver la préposition "ja"',
-          "Remplacer asou → par tout",
-          "Remplacer lannwit-tala par lannwit-a",
+          'Retirer "ja"',
+          "Ajouter i → Chyen-an i japé",
+          "Remplacer par sa lannwit-a",
           "B et C"
         ],
         answer: 3,
@@ -886,7 +887,7 @@
         id: 8,
         type: "mcq",
         badge: "Démonstratif",
-        question: "___ mang-yan chwit.<br><small style=\"color:rgba(240,240,245,.5);font-weight:400\">Ces mangues sont délicieuses.</small>",
+        question: "___ mang-yan chwit.<br><small style=\"color:rgba(240,240,245,.5);font-weight:400\">Cette mangue est bonne.</small>",
         options: ["Sa", "Mo", "Li", "Sé"],
         answer: 0,
         points: 10,
@@ -897,12 +898,12 @@
         id: 9,
         type: "mcq",
         badge: "Culture",
-        question: 'Pourquoi il n\'y a pas de verbe "être" dans : <em>Mo timoun légliz</em> ?',
+        question: 'Pourquoi il n\'y a pas de verbe "être" dans : <em>Mo timoun lékòl</em> ?',
         options: [
-          "Un Oubli",
-          "Une Simplification",
-          "C'est une Structure nominale normale en créole guyanais",
-          "C'est une erreur"
+          "Oubli",
+          "Simplification",
+          "Structure nominale normale",
+          "Erreur"
         ],
         answer: 2,
         points: 10,
@@ -1000,12 +1001,12 @@
 
     // ── Partage de score ────────────────────────────────
     function shareScore() {
-      const badge = score >= 90 ? "👑" : score >= 70 ? "💪" : score >= 50 ? "🙂" : "💡";
+      const badge = score >= 100 ? "👑" : score >= 80 ? "🥈" : score >= 70 ? "💪" : score >= 50 ? "🙂" : "💡";
       const text = `${badge} J'ai obtenu ${score}/110 au Quizz Kréolyse !\n🎮 Mission Kréolyse — 10 défis en créole guyanais.\nTu relèves le défi ? → ${window.location.href}`;
       const btn = document.getElementById("btn-share");
 
       if (navigator.share) {
-        navigator.share({ title: "Mission Kréolyse — Quizz sur le Créole guyanais", text }).catch(() => {});
+        navigator.share({ title: "Mission Kréolyse — Quizz", text }).catch(() => {});
       } else {
         navigator.clipboard.writeText(text).then(() => {
           const prev = btn.innerHTML;
@@ -1209,9 +1210,18 @@
       $progressFill.style.width = "100%";
 
       let icon, title, msg;
-      if (score >= 90) {
+      if (score >= 100) {
+        document.getElementById("badge-img").src            = "public/images/badge quizz.png";
+        document.getElementById("badge-label").textContent  = "🔓 Badge Or débloqué !";
+        document.getElementById("badge-subtitle").textContent = "Maître du Créole Guyanais";
         icon = "👑"; title = "OU SA DOKO KRÉYÒL-A !";
         msg = "Incroyable ! Tu maîtrises le créole guyanais. La langue est entre de bonnes mains !";
+      } else if (score >= 80) {
+        document.getElementById("badge-img").src            = "public/images/badge quizz argent.png";
+        document.getElementById("badge-label").textContent  = "🔓 Badge Argent débloqué !";
+        document.getElementById("badge-subtitle").textContent = "Kréyolisant confirmé";
+        icon = "🥈"; title = "To kréyol bon tou boneman !";
+        msg = "Bravo. Encore un effort pour le Badge Or";
       } else if (score >= 70) {
         icon = "💪"; title = "Ou ja fò !";
         msg = "Très bon score ! Tu connais bien les bases du créole guyanais. Continue comme ça !";
@@ -1231,7 +1241,7 @@
       // Badge ou icône selon le score
       const $badgeWrap = document.getElementById("results-badge-wrap");
       const $icon      = document.getElementById("results-icon");
-      if (score >= 90) {
+      if (score >= 80) {
         $badgeWrap.classList.remove("hidden");
         $icon.classList.add("hidden");
       } else {
@@ -1252,7 +1262,7 @@
       }
 
       // Séquence finale : congrat (1.5s) → écran résultats
-      if (score >= 90) {
+      if (score >= 80) {
         toucanMood("congrat");
         sfxWin();
         setTimeout(() => showScreen("results"), 1500);
